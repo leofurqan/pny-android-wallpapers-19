@@ -1,6 +1,7 @@
 package com.example.myapplication.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.WallpaperViewActivity;
 import com.example.myapplication.data.WallpapersData;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class WallpapersAdapter extends RecyclerView.Adapter<WallpapersAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         WallpapersData data = wallpapers.get(position);
         Glide.with(context).load(data.getUrl()).into(holder.getImg());
+
+        holder.getImg().setOnClickListener(v -> {
+            Intent intent = new Intent(context, WallpaperViewActivity.class);
+            intent.putExtra("wallpaper", data);
+            context.startActivity(intent);
+        });
     }
 
     @Override
